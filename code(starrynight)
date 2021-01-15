@@ -1,0 +1,1230 @@
+```
+<!DOCTYPE html>
+<html>
+<head>
+  <div id="world"></div>
+  <link rel="stylesheet" type="text/css" href="sky.css" />
+	
+</head>
+<body>
+	<script src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.min.js"></script>
+     <script src = "bird.js"></script>
+   <script src = "https://mimicproject.com/libs/maximilian.js"></script>
+<script language="javascript" type="text/javascript">
+  
+  var audio= new Audio("Achille-Claude Debussy.mp3");//Loading the music sample
+
+  audio.play();
+  
+  var Colors = {
+    red:0x9BC1D1,
+    white:0xF6F5BA,
+    brown:0x4D241C,
+    pink:0xF5986E,
+    brownDark:0x8C8CB0,
+    purple:0xF6DBD2,
+    green:0xBDDA87,
+    orange:0xECC33D,
+    yellow:0xF3F781,
+    yellow02:0xE9ED0D,
+    yellow03:0xFDD405,
+    yellow04:0xFCE80A,
+    blue: 0x0B468E,
+    blue02:0x276DE5,
+    aa:0x2F62C1,
+};
+	
+
+    var width = window.innerWidth;
+	var height = window.innerHeight;
+      
+    var HALF_WIDTH = width/2 ;
+	var HALF_HEIGHT = height / 2; 
+  
+      let mouseX = 0;
+    let mouseY = 0;
+      
+    let x=100;  
+    let y=100;
+      
+  
+  var clock = new THREE.Clock();
+var time = 0;
+var delta = 0;
+  
+  var camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight,1, 1000); 
+  camera.position.z =0.5; 
+	var scene = new THREE.Scene();
+
+  
+  renderer = new THREE.WebGLRenderer();
+   
+  	var geometry = new THREE.OctahedronGeometry(5.2,2.0);
+    var geom02 = new THREE.OctahedronGeometry(0.7,2.0);
+    var sky = new THREE.BoxBufferGeometry(1.2, 2, 0.5);
+    var ground = new THREE.PlaneGeometry(1,1,1);
+    var ball1 = new THREE.SphereGeometry(0.17, 90, 10);
+    var ball02 = new THREE.SphereGeometry(0.8, 29, 18);
+    var ball03 = new THREE.SphereGeometry(0.2, 12, 8);
+    var ball04 = new THREE.SphereGeometry(0.16, 12, 8);
+    var ball05 = new THREE.SphereGeometry(0.10, 12, 8);
+    var ball06 = new THREE.SphereGeometry(0.13, 12, 8);
+    var ball07 = new THREE.SphereGeometry(0.11, 12, 8);
+    var ball08 = new THREE.SphereGeometry(0.09, 12, 8);
+    var ball09 = new THREE.SphereGeometry(0.2, 12, 8);
+    var ball10 = new THREE.SphereGeometry(0.08, 12, 8);
+    var plane = new THREE.SphereGeometry(0.18,8,0.8);
+    var box = new THREE.OctahedronGeometry(0.13,0);
+    var a = new THREE.DodecahedronGeometry(0.1,0);
+    var b = new THREE.IcosahedronGeometry(0.4,0);
+    var c = new THREE.OctahedronGeometry(0.07,0);
+    var d = new THREE.OctahedronGeometry(0.5,0);
+    var ring = new THREE.RingGeometry(0.33, 0.37,19,8,0,Math.PI * 2);
+    var ring02 = new THREE.RingGeometry(0.23, 0.25,27,8,0,Math.PI * 2);
+    var ring03 = new THREE.RingGeometry(0.28, 0.32,27,8,0,Math.PI * 2);
+    var ring04 = new THREE.RingGeometry(0.4, 0.45,27,8,0,Math.PI * 2);
+    var ring05 = new THREE.RingGeometry(0.18, 0.21,17,8,0,Math.PI * 2);
+    var ring06 = new THREE.TorusGeometry( 0.12,0.015,15,300, Math.PI * 2);
+    var ring07 = new THREE.SphereGeometry(0.12, 12, 8);
+    var ring08 = new THREE.RingGeometry(0.013, 0.22,27,8,0,Math.PI * 2);
+    var move01 = new THREE.RingGeometry(1.22, 1.89, 18);
+    var move02 = new THREE.RingGeometry(0.73, 1.38,27,8,0,Math.PI * 2);
+    var move03 = new THREE.RingGeometry(0.53, 1.08,27,8,0,Math.PI * 2);
+    var move04 = new THREE.RingGeometry(0.33, 0.68,27,8,0,Math.PI * 2);
+    var e = new THREE.OctahedronGeometry(0.18,0);
+    var f = new THREE.OctahedronGeometry(0.17,0);
+    var g = new THREE.OctahedronGeometry(0.23,1);
+    var h = new THREE.OctahedronGeometry(0.12,0);
+    var rr = new THREE.TorusGeometry( 0.22,0.011,5,300, Math.PI * 2);
+    var rr02 = new THREE.TorusGeometry( 0.25,0.015,5,300, Math.PI * 2);
+    var rr03 = new THREE.TorusGeometry( 0.25,0.011,5,300, Math.PI * 2);
+    var village01 = new THREE.SphereGeometry(0.7, 29, 18);
+    var vil02 = new THREE.SphereGeometry(0.7, 29, 18);
+    var vil03 = new THREE.SphereGeometry(0.7, 29, 18);
+    var vil04 = new THREE.SphereGeometry(0.7, 29, 18);
+    var vil05 = new THREE.SphereGeometry(0.9, 29, 18);
+  
+    var bg01 = new THREE.RingGeometry(0.82, 1.89, 18);
+    var bg02 = new THREE.RingGeometry(0.73, 1.38,27,8,0,Math.PI * 2);
+    var bg03 = new THREE.RingGeometry(0.33, 0.98,27,8,0,Math.PI * 2);
+    var bg04 = new THREE.RingGeometry(0.83, 1.58,27,8,0,Math.PI * 2);
+  
+
+  
+    var Q1 = new THREE.RingGeometry(0.14, 0.17,19,8,0,Math.PI * 2);
+    var Q2 = new THREE.RingGeometry(0.20, 0.25,27,8,0,Math.PI * 2);
+    var Q3 = new THREE.RingGeometry(0.28, 0.32,27,8,0,Math.PI * 2);
+    var Q4 = new THREE.RingGeometry(0.15, 0.18,27,8,0,Math.PI * 2);
+    var Q5 = new THREE.RingGeometry(0.15, 0.18,17,8,0,Math.PI * 2);
+    var Q6 = new THREE.RingGeometry(0.20, 0.25,27,8,0,Math.PI * 2);
+    var Q7 = new THREE.RingGeometry(0.28, 0.32,27,8,0,Math.PI * 2);
+    var Q8 = new THREE.RingGeometry(0.35, 0.38,27,8,0,Math.PI * 2);
+    var Q9 = new THREE.RingGeometry(0.15, 0.18,17,8,0,Math.PI * 2);
+
+  //< star group>
+    var star01 = new THREE.OctahedronGeometry(0.07,0);
+    var star02 = new THREE.OctahedronGeometry(0.05,0);
+    var star03 = new THREE.OctahedronGeometry(0.07,0);
+    var star04 = new THREE.OctahedronGeometry(0.09,0);
+    var star05 = new THREE.OctahedronGeometry(0.07,0);
+    var star06 = new THREE.OctahedronGeometry(0.02,0);
+    var star07 = new THREE.OctahedronGeometry(0.05,0);
+    var star08 = new THREE.OctahedronGeometry(0.05,0);
+    var star09 = new THREE.OctahedronGeometry(0.07,0);
+    var star10 = new THREE.OctahedronGeometry(0.05,0);
+    var star11 = new THREE.OctahedronGeometry(0.08,0);
+    var star12 = new THREE.OctahedronGeometry(0.09,0);
+    var star13 = new THREE.OctahedronGeometry(0.07,0);
+    var star14 = new THREE.OctahedronGeometry(0.05,0);
+    var star15 = new THREE.OctahedronGeometry(0.07,0);
+    var star16 = new THREE.OctahedronGeometry(0.09,0);
+  
+  //< light group>
+    var light01 = new THREE.RingGeometry(0.4, 0.72,27,8,0,Math.PI * 2);
+    var light02 = new THREE.RingGeometry(0.4, 0.72,27,8,0,Math.PI * 2);
+    var light03 = new THREE.RingGeometry(0.4, 0.72,27,8,0,Math.PI * 2);
+    var light04 = new THREE.RingGeometry(0.3, 0.72,27,8,0,Math.PI * 2);
+    var light05 = new THREE.RingGeometry(0.3, 1.32,27,8,0,Math.PI * 2);
+    var light06 = new THREE.RingGeometry(0.3, 0.82,27,8,0,Math.PI * 2);
+    var light07 = new THREE.RingGeometry(0.1, 0.62,27,8,0,Math.PI * 2);
+    var light08 = new THREE.RingGeometry(0.3, 0.62,27,8,0,Math.PI * 2);
+  
+    var house01 = new THREE.OctahedronGeometry(0.07,0);
+    var house02 = new THREE.OctahedronGeometry(0.11,1);
+    var house03 = new THREE.OctahedronGeometry(0.10,0);
+    var house04 = new THREE.OctahedronGeometry(0.12,1);
+    var house05 = new THREE.OctahedronGeometry(0.07,0);
+
+	  var myTextureLoader1 = new THREE.TextureLoader();
+
+	  var myTexture1 = myTextureLoader1.load('beijing.png');
+    var myTexture2 = myTextureLoader1.load('dimian02.png');
+    var myTexture3 = myTextureLoader1.load('guanghui.png');
+    var myTexture4 = myTextureLoader1.load('shugan.jpg');
+    var myTexture5 = myTextureLoader1.load('light01.jpg');
+    var myTexture6 = myTextureLoader1.load('wenli04.png');
+    var myTexture7 = myTextureLoader1.load('wenli08.jpg');
+    var myTexture8 = myTextureLoader1.load('wenli09.jpg');
+    var myTexture9 = myTextureLoader1.load('wenli10.jpg');
+    var myTexture10 = myTextureLoader1.load('guangyun.jpg');
+    var myTexture11 = myTextureLoader1.load('villiage.png');
+    var myTexture12 = myTextureLoader1.load('light04.png');
+    var myTexture13 = myTextureLoader1.load('move.png');
+    var myTexture14 = myTextureLoader1.load('bgrotate.png');
+ 
+  	var material = new THREE.MeshPhongMaterial({          
+        map: myTexture2,
+        transparent:true,
+        opacity:1.0,
+        shading:THREE.FlatShading});
+    var geom02material = new THREE.MeshPhongMaterial({     
+        map: myTexture2,
+        transparent:true,
+        opacity:1.0,
+        shading:THREE.FlatShading});
+    var skyMaterial = new THREE.MeshPhongMaterial({
+      map: myTexture1,
+        transparent:true,
+        opacity:0.8,
+        shading:THREE.FlatShading});
+    var groundMaterial = new THREE.MeshPhongMaterial({map: myTexture8});
+    var ball1Material = new THREE.MeshPhongMaterial({
+        map: myTexture5,
+        transparent:true,
+        opacity:0.9,
+        shading:THREE.FlatShading});
+    var ball02Material = new THREE.MeshPhongMaterial({
+        map: myTexture11,
+        transparent:true,
+        opacity:0.9,
+        shading:THREE.FlatShading});
+    var ball03Material = new THREE.MeshPhongMaterial({map: myTexture12});
+    var ball04Material = new THREE.MeshPhongMaterial({map: myTexture12});
+    var ball05Material = new THREE.MeshPhongMaterial({map: myTexture12});
+    var ball06Material = new THREE.MeshPhongMaterial({map: myTexture12});
+    var ball07Material = new THREE.MeshPhongMaterial({map: myTexture12});
+    var ball08Material = new THREE.MeshPhongMaterial({map: myTexture12});
+    var ball09Material = new THREE.MeshPhongMaterial({map: myTexture12});
+    var ball10Material = new THREE.MeshPhongMaterial({map: myTexture12});
+    var planeMaterial = new THREE.MeshPhongMaterial({
+        map: myTexture12,
+        transparent:true,
+        opacity:0.95,
+        shading:THREE.FlatShading});
+    var rrmaterial = new THREE.MeshPhongMaterial({
+        map: myTexture5,
+        transparent:true,
+        opacity:0.7,
+        shading:THREE.FlatShading});
+    var rr02material = new THREE.MeshPhongMaterial({map: myTexture5} );
+    var rr03material = new THREE.MeshPhongMaterial({map: myTexture6} );
+    var gMaterial = new THREE.MeshPhongMaterial({
+        map: myTexture4,
+        transparent:true,
+        opacity:0.9,
+     shading:THREE.FlatShading});
+    var hMaterial = new THREE.MeshPhongMaterial({
+        map: myTexture4,
+        transparent:true,
+        opacity:0.8,
+        shading:THREE.FlatShading});
+    var boxMaterial = new THREE.MeshPhongMaterial({
+        map: myTexture4,
+        transparent:true,
+        opacity:0.8,
+        shading:THREE.FlatShading});
+  
+    var aMaterial = new THREE.MeshPhongMaterial({
+       map: myTexture4,
+        transparent:true,
+        opacity:0.9,
+        shading:THREE.FlatShading});
+    var bMaterial = new THREE.MeshPhongMaterial({
+       map: myTexture4,
+        transparent:true,
+        opacity:0.8,
+        shading:THREE.FlatShading});
+    var cMaterial = new THREE.MeshPhongMaterial({
+       map: myTexture4,
+        transparent:true,
+        opacity:0.9,
+     shading:THREE.FlatShading});
+  var dMaterial = new THREE.MeshPhongMaterial({
+        map: myTexture4,
+        transparent:true,
+        opacity:0.8,
+        shading:THREE.FlatShading});
+  var ringMaterial = new THREE.MeshPhongMaterial({
+        map: myTexture8,
+        transparent:true,
+        opacity:0.7,
+        shading:THREE.FlatShading});
+  var ring02Material = new THREE.MeshPhongMaterial({
+        map: myTexture5,
+        transparent:true,
+        opacity:0.7,
+        shading:THREE.FlatShading});
+   var ring03Material = new THREE.MeshPhongMaterial({
+        map: myTexture5,
+        transparent:true,
+        opacity:0.7,
+        shading:THREE.FlatShading});
+  var ring04Material = new THREE.MeshPhongMaterial({
+        map: myTexture12,
+        transparent:true,
+        opacity:0.5,
+        shading:THREE.FlatShading});
+  var ring05Material = new THREE.MeshPhongMaterial({
+        map: myTexture12,
+        transparent:true,
+        opacity:0.7,
+     shading:THREE.FlatShading});
+  var ring06Material = new THREE.MeshPhongMaterial({
+        map: myTexture12,
+        transparent:true,
+        opacity:0.6,
+        shading:THREE.FlatShading});
+  var ring07Material = new THREE.MeshPhongMaterial({
+      map: myTexture12,
+        transparent:true,
+        opacity:0.8,
+        shading:THREE.FlatShading});
+  var ring08Material = new THREE.MeshPhongMaterial({
+        map: myTexture12,
+        transparent:true,
+        opacity:0.7,
+        shading:THREE.FlatShading});
+  var eMaterial = new THREE.MeshPhongMaterial({
+        map: myTexture4,
+        transparent:true,
+        opacity:0.8,
+        shading:THREE.FlatShading});
+  var fMaterial = new THREE.MeshPhongMaterial({
+        map: myTexture4,
+        transparent:true,
+        opacity:0.8,
+        shading:THREE.FlatShading});
+  var village01Material = new THREE.MeshPhongMaterial({
+        map: myTexture11,
+        transparent:true,
+        opacity:0.9,
+        shading:THREE.FlatShading});
+  var vil02Material = new THREE.MeshPhongMaterial({
+        map: myTexture11,
+        transparent:true,
+        opacity:0.9,
+        shading:THREE.FlatShading});
+  var vil03Material = new THREE.MeshPhongMaterial({
+      map: myTexture11,
+      transparent:true,
+      opacity:0.9,
+      shading:THREE.FlatShading});
+  var vil04Material = new THREE.MeshPhongMaterial({
+      map: myTexture11,
+      transparent:true,
+      opacity:0.9,
+      shading:THREE.FlatShading});
+  var vil05Material = new THREE.MeshPhongMaterial({
+      map: myTexture11,
+      transparent:true,
+      opacity:0.9,
+      shading:THREE.FlatShading});
+  var light01Material = new THREE.MeshPhongMaterial({
+      map: myTexture3,
+      transparent:true,
+      opacity:0.9,
+      shading:THREE.FlatShading});
+  var light02Material = new THREE.MeshPhongMaterial({
+      map: myTexture3,
+      transparent:true,
+      opacity:0.9,
+      shading:THREE.FlatShading});
+  var light03Material = new THREE.MeshPhongMaterial({
+      map: myTexture3,
+      transparent:true,
+      opacity:0.9,
+     shading:THREE.FlatShading});
+  var light04Material = new THREE.MeshPhongMaterial({
+      map: myTexture3,
+      transparent:true,
+      opacity:0.9,
+      shading:THREE.FlatShading});
+  var light05Material = new THREE.MeshPhongMaterial({
+      map: myTexture3,
+      transparent:true,
+      opacity:0.9,
+      shading:THREE.FlatShading});
+  var light06Material = new THREE.MeshPhongMaterial({
+      map: myTexture3,
+      transparent:true,
+      opacity:0.9,
+      shading:THREE.FlatShading});
+  var light07Material = new THREE.MeshPhongMaterial({
+      map: myTexture3,
+      transparent:true,
+      opacity:1.0,
+      shading:THREE.FlatShading});
+  var light08Material = new THREE.MeshPhongMaterial({
+      map: myTexture3,
+      transparent:true,
+      opacity:1.0,
+      shading:THREE.FlatShading});
+
+  var move01Material = new THREE.MeshPhongMaterial({
+      map: myTexture13,
+      transparent:true,
+      opacity:0.75,
+      shading:THREE.FlatShading});
+  var move02Material = new THREE.MeshPhongMaterial({
+      map: myTexture13,
+      transparent:true,
+      opacity:0.75,
+      shading:THREE.FlatShading});
+  var move03Material = new THREE.MeshPhongMaterial({
+      map: myTexture13,
+      transparent:true,
+      opacity:0.45,
+      shading:THREE.FlatShading});
+  var move04Material = new THREE.MeshPhongMaterial({
+      map: myTexture13,
+      transparent:true,
+       opacity:0.75,
+      shading:THREE.FlatShading});
+  
+  var Q1Material = new THREE.MeshPhongMaterial({
+      map: myTexture12,
+      transparent:true,
+        opacity:0.9,
+     shading:THREE.FlatShading});
+  var Q2Material = new THREE.MeshPhongMaterial({
+      map: myTexture12,
+        transparent:true,
+        opacity:0.9,
+     shading:THREE.FlatShading});
+   var Q3Material = new THREE.MeshPhongMaterial({
+      map: myTexture12,
+        transparent:true,
+        opacity:0.9,
+     shading:THREE.FlatShading});
+  var Q4Material = new THREE.MeshPhongMaterial({
+       map: myTexture12,
+        transparent:true,
+        opacity:0.9,
+     shading:THREE.FlatShading});
+  var Q5Material = new THREE.MeshPhongMaterial({
+      map: myTexture12,
+        transparent:true,
+        opacity:0.9,
+     shading:THREE.FlatShading});
+    var Q6Material = new THREE.MeshPhongMaterial({
+      map: myTexture12,
+        transparent:true,
+        opacity:0.9,
+     shading:THREE.FlatShading});
+   var Q7Material = new THREE.MeshPhongMaterial({
+      map: myTexture12,
+        transparent:true,
+        opacity:0.9,
+     shading:THREE.FlatShading});
+  var Q8Material = new THREE.MeshPhongMaterial({
+       map: myTexture12,
+        transparent:true,
+        opacity:0.9,
+     shading:THREE.FlatShading});
+  var Q9Material = new THREE.MeshPhongMaterial({
+      map: myTexture12,
+        transparent:true,
+        opacity:0.9,
+     shading:THREE.FlatShading});
+  
+      var house01Material = new THREE.MeshPhongMaterial({
+       map: myTexture4,
+        transparent:true,
+        opacity:0.9,
+     shading:THREE.FlatShading});
+        var house02Material = new THREE.MeshPhongMaterial({
+       map: myTexture4,
+        transparent:true,
+        opacity:0.9,
+     shading:THREE.FlatShading});
+        var house03Material = new THREE.MeshPhongMaterial({
+       map: myTexture4,
+        transparent:true,
+        opacity:0.9,
+     shading:THREE.FlatShading});
+        var house04Material = new THREE.MeshPhongMaterial({
+       map: myTexture4,
+        transparent:true,
+        opacity:0.9,
+     shading:THREE.FlatShading});
+        var house05Material = new THREE.MeshPhongMaterial({
+       map: myTexture4,
+        transparent:true,
+        opacity:0.9,
+     shading:THREE.FlatShading});
+  
+      var bg01Material = new THREE.MeshPhongMaterial({
+       map: myTexture13,
+        transparent:true,
+        opacity:0.4,
+     shading:THREE.FlatShading});
+        var bg02Material = new THREE.MeshPhongMaterial({
+       map: myTexture13,
+        transparent:true,
+        opacity:0.3,
+     shading:THREE.FlatShading});
+        var bg03Material = new THREE.MeshPhongMaterial({
+       map: myTexture13,
+        transparent:true,
+        opacity:0.4,
+     shading:THREE.FlatShading});
+        var bg04Material = new THREE.MeshPhongMaterial({
+       map: myTexture13,
+        transparent:true,
+        opacity:0.4,
+     shading:THREE.FlatShading});
+  
+  var star01Material = new THREE.MeshPhongMaterial({map: myTexture13});
+  var star02Material = new THREE.MeshPhongMaterial({map: myTexture13});
+  var star03Material = new THREE.MeshPhongMaterial({map: myTexture13});
+  var star04Material = new THREE.MeshPhongMaterial({map: myTexture13});
+  var star05Material = new THREE.MeshPhongMaterial({map: myTexture13});
+  var star06Material = new THREE.MeshPhongMaterial({map: myTexture13});
+  var star07Material = new THREE.MeshPhongMaterial({map: myTexture13});
+  var star08Material = new THREE.MeshPhongMaterial({map: myTexture13});
+  var star09Material = new THREE.MeshPhongMaterial({map: myTexture13});
+  var star10Material = new THREE.MeshPhongMaterial({map: myTexture13});
+  var star11Material = new THREE.MeshPhongMaterial({map: myTexture13});
+  var star12Material = new THREE.MeshPhongMaterial({map: myTexture13});
+  var star13Material = new THREE.MeshPhongMaterial({map: myTexture13});
+  var star14Material = new THREE.MeshPhongMaterial({map: myTexture13});
+  var star15Material = new THREE.MeshPhongMaterial({map: myTexture13});
+  var star16Material = new THREE.MeshPhongMaterial({map: myTexture13});
+    
+// We can now create a mesh using the geomentry and the material
+  var mesh = new THREE.Mesh(geometry, material);
+  var geom02mesh = new THREE.Mesh(geom02, geom02material);
+  var skyMesh = new THREE.Mesh(sky, skyMaterial);
+      skyMesh.position.set(0,0,-1);
+      skyMesh.scale.set(8.5,8.5,1);
+   var groundMesh = new THREE.Mesh(ground, groundMaterial);
+      groundMesh.position.set(0,-2.9,0);
+      groundMesh.scale.set(5.9,1,1);
+   var ball1Mesh = new THREE.Mesh(ball1,ball1Material);
+   var ball02Mesh = new THREE.Mesh(ball02,ball02Material);
+//ball02Mesh.position.set(0,mouse.x*0.05,-1);
+   var ball03Mesh = new THREE.Mesh(ball03,ball03Material);
+   var ball04Mesh = new THREE.Mesh(ball04,ball04Material);
+   var ball05Mesh = new THREE.Mesh(ball05,ball05Material);
+   var ball06Mesh = new THREE.Mesh(ball06,ball06Material);
+   var ball07Mesh = new THREE.Mesh(ball07,ball07Material);
+   var ball08Mesh = new THREE.Mesh(ball08,ball08Material);
+   var ball09Mesh = new THREE.Mesh(ball09,ball09Material);
+   var ball10Mesh = new THREE.Mesh(ball10,ball10Material);
+   var planeMesh = new THREE.Mesh(plane,planeMaterial);
+   var boxMesh = new THREE.Mesh(box,boxMaterial);
+
+   var aMesh = new THREE.Mesh(a,aMaterial);
+   var bMesh = new THREE.Mesh(b,bMaterial);
+   var cMesh = new THREE.Mesh(c,cMaterial);
+   var ringMesh = new THREE.Mesh(ring,ringMaterial);
+   var ring02Mesh = new THREE.Mesh(ring02,ring02Material);
+   var ring03Mesh = new THREE.Mesh(ring03,ring03Material);
+   var ring04Mesh = new THREE.Mesh(ring04,ring04Material);
+   var ring05Mesh = new THREE.Mesh(ring05,ring05Material);
+   var ring06Mesh = new THREE.Mesh(ring06,ring06Material);
+   var ring07Mesh = new THREE.Mesh(ring07,ring07Material);
+   var ring08Mesh = new THREE.Mesh(ring08,ring08Material);
+   var dMesh = new THREE.Mesh(d,dMaterial);
+   var eMesh = new THREE.Mesh(e,eMaterial);
+   var fMesh = new THREE.Mesh(f,fMaterial);
+   var gMesh = new THREE.Mesh(g,gMaterial);
+   var hMesh = new THREE.Mesh(h,hMaterial);
+   var rrMesh = new THREE.Mesh( rr, rrmaterial );
+   var rr02Mesh = new THREE.Mesh( rr02, rr02material );
+   var rr03Mesh = new THREE.Mesh( rr03, rr03material );
+   var village01Mesh = new THREE.Mesh( village01, village01Material );
+   var vil02Mesh = new THREE.Mesh( vil02, vil02Material );
+   var vil03Mesh = new THREE.Mesh( vil03, vil03Material );
+   var vil04Mesh = new THREE.Mesh( vil04, vil04Material );
+   var vil05Mesh = new THREE.Mesh( vil05, vil05Material );
+   var light01Mesh = new THREE.Mesh( light01, light01Material );
+   var light02Mesh = new THREE.Mesh( light02, light02Material );
+   var light03Mesh = new THREE.Mesh( light03, light03Material );
+   var light04Mesh = new THREE.Mesh( light04, light04Material );
+   var light05Mesh = new THREE.Mesh( light05, light05Material );
+   var light06Mesh = new THREE.Mesh( light06, light06Material );
+   var light07Mesh = new THREE.Mesh( light07, light07Material );
+   var light08Mesh = new THREE.Mesh( light08, light08Material );
+    
+  
+   var move01Mesh = new THREE.Mesh( move01, move01Material );
+   var move02Mesh = new THREE.Mesh( move02, move02Material );
+   var move03Mesh = new THREE.Mesh( move03, move03Material );
+   var move04Mesh = new THREE.Mesh( move04, move04Material );
+  
+   var house01Mesh = new THREE.Mesh( house01, house01Material );
+   var house02Mesh = new THREE.Mesh( house02, house02Material );
+   var house03Mesh = new THREE.Mesh( house03, house03Material );
+   var house04Mesh = new THREE.Mesh( house04, house04Material );
+   var house05Mesh = new THREE.Mesh( house05, house05Material );
+   
+   var star01Mesh = new THREE.Mesh( star01, star01Material );
+   var star02Mesh = new THREE.Mesh( star02, star02Material );
+   var star03Mesh = new THREE.Mesh( star03, star03Material );
+   var star04Mesh = new THREE.Mesh( star04, star04Material );
+   var star05Mesh = new THREE.Mesh( star05, star05Material );
+   var star06Mesh = new THREE.Mesh( star06, star06Material );
+   var star07Mesh = new THREE.Mesh( star07, star07Material );
+   var star08Mesh = new THREE.Mesh( star08, star08Material );
+   var star09Mesh = new THREE.Mesh( star09, star09Material );
+   var star10Mesh = new THREE.Mesh( star10, star10Material );
+   var star11Mesh = new THREE.Mesh( star11, star11Material );
+   var star12Mesh = new THREE.Mesh( star12, star12Material );
+   var star13Mesh = new THREE.Mesh( star13, star13Material );
+   var star14Mesh = new THREE.Mesh( star14, star14Material );
+   var star15Mesh = new THREE.Mesh( star15, star15Material );
+   var star16Mesh = new THREE.Mesh( star16, star16Material );
+   
+    var Q1Mesh = new THREE.Mesh(Q1,Q1Material);
+    var Q2Mesh = new THREE.Mesh(Q2,Q2Material);
+    var Q3Mesh = new THREE.Mesh(Q3,Q3Material);
+    var Q4Mesh = new THREE.Mesh(Q4,Q4Material);
+    var Q5Mesh = new THREE.Mesh(Q5,Q5Material);
+    var Q6Mesh = new THREE.Mesh(Q6,Q6Material);
+    var Q7Mesh = new THREE.Mesh(Q7,Q7Material);
+    var Q8Mesh = new THREE.Mesh(Q8,Q8Material);
+    var Q9Mesh = new THREE.Mesh(Q9,Q9Material);
+  
+   var bg01Mesh = new THREE.Mesh( bg01, bg01Material );
+   var bg02Mesh = new THREE.Mesh( bg02, bg02Material );
+   var bg03Mesh = new THREE.Mesh( bg03, bg03Material );
+   var bg04Mesh = new THREE.Mesh( bg04, bg04Material );
+	
+   var light = new THREE.DirectionalLight("rgb(255,255,255)");
+
+	 var renderer = new THREE.WebGLRenderer();
+
+
+	camera.position.z = 3;
+  
+	light.position.set(0.1,0.1,0.3);
+  mesh.translateY (-5.7);
+  mesh.translateZ (-2.1);
+  geom02mesh.translateX (2.0);
+  geom02mesh.translateY (-1.3);
+  skyMesh.translateZ (-2.1);
+  ball02Mesh.translateZ (-0.8);
+  boxMesh.translateX(-1.0);
+  boxMesh.translateY(0.2);
+  aMesh.translateX(-1.4);
+  aMesh.translateY(0.7);
+  bMesh.translateX (-0.9);
+  bMesh.translateY (-0.7);
+  cMesh.translateX (-1.4);
+  cMesh.translateY (0.9);
+  boxMesh.translateX (-0.4);
+  boxMesh.translateY (0.26);
+  dMesh.translateX (-1.4);
+  dMesh.translateY (-0.6);
+  eMesh.translateX (-0.99);
+  eMesh.translateY (-0.25);
+  fMesh.translateX (-1.4);
+  fMesh.translateY (0.22);
+  gMesh.translateX (-1.4);
+  gMesh.translateY (-0.1);
+  hMesh.translateX (-1.02);
+  hMesh.translateY (-0.09);
+  ball1Mesh.translateX (0.9);
+  ball1Mesh.translateY (0.68);
+   ball1Mesh.translateZ (-1.2);
+  ball02Mesh.translateX (2.0);
+  ball02Mesh.translateY (-1.3);
+  ball02Mesh.translateZ (-1.4);
+  ball03Mesh.translateX (0.3);
+  ball03Mesh.translateY (1.0);
+  ball03Mesh.translateZ (-0.8);
+   ball04Mesh.translateX (-2.02);
+  ball04Mesh.translateY (0.2);
+  ball04Mesh.translateZ (-0.8);
+   ball05Mesh.translateX (-1.3);
+  ball05Mesh.translateY (0.5);
+  ball05Mesh.translateZ (-0.8);
+  ball06Mesh.translateX (-1.6);
+  ball06Mesh.translateY (0.8);
+  ball06Mesh.translateZ (-0.8);
+  ball07Mesh.translateX (-0.8);
+  ball07Mesh.translateY (0.99);
+  //ball07Mesh.translateZ (-0.8);
+  ball08Mesh.translateX (-0.84);
+  ball08Mesh.translateY (1.1);
+  ball08Mesh.translateZ (-0.8);
+  ball09Mesh.translateX (-1.3);
+  ball09Mesh.translateY (1.09);
+  ball10Mesh.translateX (-2.14);
+  ball10Mesh.translateY (0.29);
+  
+  
+  rr02Mesh.translateX (-2.15);
+  rr02Mesh.translateY (0.26);
+  rr03Mesh.translateX (-0.86);
+  rr03Mesh.translateY (-0.013);
+  ringMesh.translateX (1.77);
+  ringMesh.translateY (0.66);
+  ring02Mesh.translateX (1.78);
+  ring02Mesh.translateY (0.68);
+  ring03Mesh.translateX (1.75);
+  ring03Mesh.translateY (0.66);
+  planeMesh.translateX (2.0);
+  planeMesh.translateY (0.72);
+  // planeMesh.translateZ (-0.36);
+  ring04Mesh.translateX (0.8);
+  ring04Mesh.translateY (-0.4);
+  ring04Mesh.translateZ (-1.3);
+  ring05Mesh.translateX (1.76);
+  ring05Mesh.translateY (0.68);
+     rrMesh.translateX (1.82);
+  rrMesh.translateY (0.68);
+    rrMesh.translateZ (-0.2);
+  ring06Mesh.translateX (-0.86);
+  ring06Mesh.translateY (-0.013);
+   ring07Mesh.translateX (-0.86);
+  ring07Mesh.translateY (-0.012);
+   ring08Mesh.translateX (-0.86);
+  ring08Mesh.translateY (-0.012);
+  village01Mesh.translateX (1.0);
+  village01Mesh.translateY (-0.98);
+   village01Mesh.translateZ (-1.9);
+  vil02Mesh.translateZ (-2.2);
+  vil02Mesh.translateX (-0.1);
+  vil02Mesh.translateY (-1.0);
+  vil03Mesh.translateZ (-1.59);
+  vil03Mesh.translateX (-0.95);
+  vil03Mesh.translateY (-1.26);
+  vil04Mesh.translateZ (-1.83);
+  vil04Mesh.translateX (-3.2);
+  vil04Mesh.translateY (-1.36);
+    vil05Mesh.translateZ (-1.8);
+  vil05Mesh.translateX (3.15);
+  vil05Mesh.translateY (-1.1);
+      //vil05Mesh.translateZ (-1.89);
+ // vil05Mesh.translateX (-2.1);
+ // vil05Mesh.translateY (-1.26);
+  
+  
+  //light group//
+  light01Mesh.translateX (-1.03);
+  light01Mesh.translateY (-0.95);
+   light01Mesh.translateZ (-2.5);
+  light02Mesh.translateZ (-2.7);
+  light02Mesh.translateX (0.2);
+  light02Mesh.translateY (-0.85);
+  
+    light03Mesh.translateX (-0.3);
+  light03Mesh.translateY (-0.86);
+   light03Mesh.translateZ (-2.9);
+  light04Mesh.translateZ (-2.5);
+  light04Mesh.translateX (1.1);
+  light04Mesh.translateY (-0.76);
+  
+    light05Mesh.translateX (3.4);
+  light05Mesh.translateY (-0.7);
+   light05Mesh.translateZ (-2.1);
+  light06Mesh.translateZ (-2.3);
+  light06Mesh.translateX (2.4);
+  light06Mesh.translateY (-0.58);
+  
+    light07Mesh.translateX (-3.4);
+  light07Mesh.translateY (-0.74);
+   light07Mesh.translateZ (-2.1);
+  light08Mesh.translateZ (-2.6);
+  light08Mesh.translateX (-2.45);
+  light08Mesh.translateY (-0.9);
+  
+  
+    move01Mesh.position.set(-3.1,2.38,-2.5);
+    move02Mesh.position.set (-1.25,0.4,-2.6);
+    move03Mesh.position.set (-0.8,0.1,-2.5);
+    move04Mesh.position.set (0.55,-0.2,-2.6);
+  
+    bg01Mesh.position.set(-3.1,2.38,-2.8);
+    bg02Mesh.position.set (-1.25,0.4,-2.7);
+    bg03Mesh.position.set (0.7,0.3,-2.8);
+    bg04Mesh.position.set (3.45,2.2,-2.8);
+  
+  
+  
+   Q1Mesh.translateX (-1.3);
+   Q1Mesh.translateY (0.5);
+   Q1Mesh.translateZ (-0.8);
+   Q2Mesh.translateX (0.3);
+   Q2Mesh.translateY (1.0);
+   Q2Mesh.translateZ (-0.8);
+   Q3Mesh.translateX (0.3);
+   Q3Mesh.translateY (1.0);
+   Q3Mesh.translateZ (-0.8);
+   Q4Mesh.translateX (-1.6);
+   Q4Mesh.translateY (0.8);
+   Q4Mesh.translateZ (-0.8);
+   Q5Mesh.translateX (-2);
+   Q5Mesh.translateY (0.2);
+   Q5Mesh.translateZ (-0.7);
+    Q6Mesh.translateX (0.9);
+  Q6Mesh.translateY (0.68);
+   Q6Mesh.translateZ (-1.2);
+  Q7Mesh.translateX (-2.14);
+  Q7Mesh.translateY (0.29);
+  Q8Mesh.translateX (-1.3);
+  Q8Mesh.translateY (1.09);
+   Q9Mesh.translateX (-0.84);
+ Q9Mesh.translateY (1.1);
+  Q9Mesh.translateZ (-0.8);
+  
+   star01Mesh.translateX (-0.3);
+   star01Mesh.translateY (1.5);
+   star01Mesh.translateZ (-0.8);
+   star02Mesh.translateX (2.3);
+   star02Mesh.translateY (0.3);
+   star02Mesh.translateZ (-0.8);
+   star03Mesh.translateX (2.3);
+   star03Mesh.translateY (1.2);
+   star03Mesh.translateZ (-0.8);
+   star04Mesh.translateX (-0.2);
+   star04Mesh.translateY (1.8);
+   star04Mesh.translateZ (-0.2);
+   star05Mesh.translateX (-1);
+   star05Mesh.translateY (0.1);
+   star05Mesh.translateZ (-0.3);
+   star06Mesh.translateX (0.5);
+   star06Mesh.translateY (1.68);
+   star06Mesh.translateZ (-0.8);
+   star07Mesh.translateX (1.14);
+   star07Mesh.translateY (1.29);
+   star08Mesh.translateX (-0.3);
+   star08Mesh.translateY (0.09);
+   star09Mesh.position.set(0.2,0.2,-0.5);
+   star10Mesh.position.set(0.3,0.1,-0.4);
+   star11Mesh.position.set(0.1,0.2,-0.9);
+   star12Mesh.position.set(0.5,0.2,-0.3);
+   star13Mesh.position.set(0.2,0.1,-0.5);
+   star14Mesh.position.set(0.2,0.6,-0.8);
+   star15Mesh.position.set(0.4,0.2,-0.6);
+   star16Mesh.position.set(0.3,0.3,-0.7);
+    
+   house01Mesh.position.set(-0.3,-0.35,0.5);
+   house02Mesh.position.set(-0.04,-0.4,0.5);
+   house03Mesh.position.set(0.2,-0.5,0.5);
+   house04Mesh.position.set(-0.15,-0.53,0.6);
+   house05Mesh.position.set(0.1,-0.4,0.5);
+
+	scene.add(mesh);
+  scene.add(geom02mesh);
+    scene.add(skyMesh);
+    scene.add(groundMesh);
+	scene.add(light);
+  scene.add(ball1Mesh);
+    scene.add(ball02Mesh);
+    scene.add(ball03Mesh);
+   scene.add(ball04Mesh);
+    scene.add(ball05Mesh);
+    scene.add(ball06Mesh);
+    scene.add(ball07Mesh);
+   scene.add(ball08Mesh);
+   scene.add(ball09Mesh);
+    scene.add(ball10Mesh);
+
+    scene.add(planeMesh);
+    scene.add(boxMesh);
+    scene.add(ringMesh);
+    scene.add(ring02Mesh);
+    scene.add(ring03Mesh);
+     scene.add(ring04Mesh);
+    scene.add(ring05Mesh);
+     scene.add(ring06Mesh);
+    scene.add(ring07Mesh);
+   scene.add(ring08Mesh);
+    scene.add(skyMesh);
+    scene.add(aMesh);
+    scene.add(bMesh);
+    scene.add(cMesh);
+    scene.add(dMesh);
+    scene.add(eMesh);
+    scene.add(gMesh);
+    scene.add(hMesh);
+    scene.add(fMesh);
+    scene.add(rrMesh);
+    scene.add(rr02Mesh);
+    scene.add(rr03Mesh);
+   scene.add(village01Mesh);
+    scene.add(vil02Mesh);
+    //  scene.add(vil03Mesh);
+     scene.add(vil04Mesh);
+      scene.add(vil05Mesh);
+     scene.add(light01Mesh);
+    scene.add(light02Mesh);
+   scene.add(light03Mesh);
+    scene.add(light04Mesh);
+   scene.add(light05Mesh);
+    scene.add(light06Mesh);
+   scene.add(light07Mesh);
+    scene.add(light08Mesh);
+  
+    scene.add(move01Mesh);
+    scene.add(move02Mesh);
+    scene.add(move03Mesh);
+    scene.add(move04Mesh);
+  
+     scene.add(bg01Mesh);
+    scene.add(bg02Mesh);
+    scene.add(bg03Mesh);
+    scene.add(bg04Mesh);
+  
+  
+    scene.add(house01Mesh);
+    scene.add(house02Mesh);
+    scene.add(house03Mesh);
+    scene.add(house04Mesh);
+    scene.add(house05Mesh);
+  
+    scene.add(Q1Mesh);
+    scene.add(Q2Mesh);
+    scene.add(Q3Mesh);
+    scene.add(Q4Mesh);
+    scene.add(Q5Mesh);
+    scene.add(Q6Mesh);
+    scene.add(Q7Mesh);
+    scene.add(Q8Mesh);
+    scene.add(Q9Mesh);
+  
+    scene.add(star01Mesh);
+    scene.add(star02Mesh);
+    scene.add(star03Mesh);
+    scene.add(star04Mesh);
+    scene.add(star05Mesh);
+    scene.add(star06Mesh);
+    scene.add(star07Mesh);
+    scene.add(star08Mesh);
+    scene.add(star09Mesh);
+    scene.add(star10Mesh);
+    scene.add(star11Mesh);
+    scene.add(star12Mesh);
+    scene.add(star13Mesh);
+    scene.add(star14Mesh);
+    scene.add(star15Mesh);
+    scene.add(star16Mesh);
+  
+  renderer.setPixelRatio(window.devicePixelRatio);
+	renderer.setSize(window.innerWidth, window.innerHeight);
+	document.body.appendChild(renderer.domElement);
+	window.addEventListener('resize', onWindowResize, false);  
+  window.addEventListener('mousemove',getMouse,false);
+	       
+  
+  function distance(ax,ay,bx,by) {
+  var x1 = bx - ax;
+  var y1 = by - ay;
+  var c1 = Math.sqrt(x1 * x1 + y1 * y1);
+  return c1;
+}  
+  
+  
+  function mouseTracer(){
+
+//   let velocity = 3.0+mouseY*0.03;
+let  velocity = 1.0;
+  x =  (mouseX ) * 0.2 ;
+  y =  (mouseY) * 0.1 ;
+//   let distanceNum = -distance(x,y,mouseX,mouseY)*0.00001;
+  
+let distanceNum = y*0.001;
+// console.log(distanceNum);//You can see the object is moving closer and closer to the mouse position  
+    return distanceNum;
+}
+      
+      
+//  Now we can have a draw loop.    
+function draw() {
+
+	renderer.render(scene, camera);
+  var num1 = mouseTracer();
+  
+
+  move01Mesh.position.x += num1*0.4;
+  move02Mesh.position.x -= num1*0.5;
+  move03Mesh.position.x += num1*0.4;
+  move04Mesh.position.x -= num1*0.3;
+  ball03Mesh.position.y += num1*0.12;
+  Q2Mesh.position.y += num1*0.12;
+  Q3Mesh.position.y += num1*0.12;
+  
+  ball1Mesh.position.y += num1*0.1;
+  Q6Mesh.position.y += num1*0.1;
+  
+  
+  ball07Mesh.position.y += num1*0.1;
+ 
+  ball08Mesh.position.y += num1*0.2;
+  Q9Mesh.position.y += num1*0.2;
+  
+  ball09Mesh.position.y += num1*0.15;
+  Q8Mesh.position.y += num1*0.15;
+
+  
+  
+  
+  house01Mesh.position.x += num1*0.3;
+  house02Mesh.position.x -= num1*0.3;
+  house03Mesh.position.x += num1*0.3;
+  house04Mesh.position.x -= num1*0.3;
+  house05Mesh.position.x += num1*0.3;
+
+ 
+ var time = Date.now() * 0.001;
+  var rx = Math.sin(time * 0.7) * 0.5,
+      ry = Math.sin(time * 0.3) * 0.5,
+      rz = Math.sin(time * 0.2) * 0.5;
+  
+  
+
+   ball05Mesh.position.z = (mouseX - x) * 0.004;
+   Q1Mesh.position.z = (mouseX - x) * 0.004;
+   ball05Mesh.position.y = (mouseY - y) * 0.004;
+   Q1Mesh.position.y = (mouseY - y) * 0.004;
+   ball06Mesh.position.y += num1*0.1;
+   Q4Mesh.position.y += num1*0.1;
+   ball06Mesh.position.z = (mouseX - x) * 0.001;
+   Q4Mesh.position.z = (mouseX - x) * 0.001;
+   ball03Mesh.position.z = (mouseX - x) * 0.005-1;
+   Q2Mesh.position.z = (mouseX - x) * 0.0005-1;
+   Q3Mesh.position.z = (mouseX - x) * 0.005-1;
+   ball03Mesh.position.y = (mouseY - y) * 0.004;
+   Q2Mesh.position.y = (mouseY - y) * 0.004;
+   Q3Mesh.position.y = (mouseY - y) * 0.004;
+  
+   star01Mesh.position.z = (mouseX - x) * 0.003;
+   star01Mesh.position.y = (mouseY - y) * 0.01;
+   star01Mesh.position.x = (mouseX - x) * 0.01;
+   star02Mesh.position.z = 1+(mouseX - x) * 0.005;
+   star02Mesh.position.y = 1+(mouseY - y) * 0.01;
+   star02Mesh.position.x = 1+(mouseX - x) * 0.01;
+   star03Mesh.position.z = 2.5+(mouseX - x) * 0.003;
+   star03Mesh.position.y = 2.5+(mouseY - y) * 0.01;
+   star04Mesh.position.z = (mouseX - x) * 0.003;
+   star04Mesh.position.y = (mouseY - y) * 0.01;
+   star04Mesh.position.z = (mouseX - x) * 0.01;
+   star05Mesh.position.z = 2.5+(mouseX - x) * 0.001;
+   star05Mesh.position.y = (mouseY - y) * 0.01;
+   star06Mesh.position.z = (mouseX - x) * 0.003;
+   star06Mesh.position.y = (mouseY - y) * 0.01;
+   star07Mesh.position.z = 1.9+(mouseX - x) * 0.003;
+   star07Mesh.position.y = (mouseY - y) * 0.01;
+   star08Mesh.position.z = 2.1+(mouseX - x) * 0.003;
+   star08Mesh.position.y = 2.3+(mouseY - y) * 0.01;
+   star09Mesh.position.z = 1+(mouseX - x) * 0.005;
+   star09Mesh.position.y = 1+(mouseY - y) * 0.01;
+   star09Mesh.position.x = 1+(mouseX - x) * 0.01;
+     star10Mesh.position.z = 1+(mouseX - x) * 0.005;
+   star10Mesh.position.y = 1+(mouseY - y) * 0.01;
+   star10Mesh.position.x = 1+(mouseX - x) * 0.01;
+     star11Mesh.position.z = 1+(mouseX - x) * 0.005;
+   star11Mesh.position.y = 1+(mouseY - y) * 0.01;
+   star11Mesh.position.x = 1+(mouseX - x) * 0.01;
+     star12Mesh.position.z = 1+(mouseX - x) * 0.005;
+   star12Mesh.position.y = 1+(mouseY - y) * 0.01;
+   star12Mesh.position.x = 1+(mouseX - x) * 0.01;
+     star13Mesh.position.z = 1+(mouseX - x) * 0.005;
+   star13Mesh.position.y = 1+(mouseY - y) * 0.01;
+   star13Mesh.position.x = 1+(mouseX - x) * 0.01;
+     star14Mesh.position.z = 1+(mouseX - x) * 0.005;
+   star14Mesh.position.y = 1+(mouseY - y) * 0.01;
+   star14Mesh.position.x = 1+(mouseX - x) * 0.01;
+     star15Mesh.position.z = 1+(mouseX - x) * 0.005;
+   star15Mesh.position.y = 1+(mouseY - y) * 0.01;
+   star15Mesh.position.x = 1+(mouseX - x) * 0.01;
+     star16Mesh.position.z = 1+(mouseX - x) * 0.005;
+   star16Mesh.position.y = 1+(mouseY - y) * 0.01;
+   star16Mesh.position.x = 1+(mouseX - x) * 0.01;
+
+  
+  move01Mesh.rotation.z += 0.01;
+  move02Mesh.rotation.z += 0.01;
+    move03Mesh.rotation.z += 0.01;
+  move04Mesh.rotation.z += 0.01;
+  mesh.rotation.z += 0.002;
+  geom02mesh.rotation.z += 0.008;
+     boxMesh.rotation.y += 0.005;
+  skyMesh.rotation.z += 0.002;
+  ring02Mesh.rotation.z += 0.03;
+   ring04Mesh.rotation.z += 0.013;
+     ring05Mesh.rotation.z += 0.023;
+   planeMesh.rotation.y += 0.003;
+  
+   Q5Mesh.rotation.z += 0.01;
+   ball04Mesh.rotation.x += 0.01;
+  
+    Q1Mesh.rotation.z += 0.01;
+   ball05Mesh.rotation.x += 0.01;
+    //Q1Mesh.rotation.z = rz;
+  // ball05Mesh.rotation.x =rx;
+  
+    Q8Mesh.rotation.z += 0.01;
+   ball09Mesh.rotation.x += 0.01;
+  
+  
+    Q7Mesh.rotation.z += 0.01;
+   ball10Mesh.rotation.x += 0.01;
+  
+    Q4Mesh.rotation.z += 0.01;
+   ball06Mesh.rotation.x += 0.01;
+//  <BALL03>
+    Q2Mesh.rotation.z += 0.01;
+    Q3Mesh.rotation.z += 0.01;
+
+    bg01Mesh.rotation.z += 0.01;
+    bg02Mesh.rotation.z += 0.005;
+    bg03Mesh.rotation.z += 0.01;
+    bg04Mesh.rotation.z += 0.005;
+  
+   bg04Mesh.position.z = 1.5*rz-2;
+   bg01Mesh.position.z = (-1.5)*rz-2;
+   bg02Mesh.position.z = (-1.5)*rz-2;
+   bg03Mesh.position.z = (-1.5)* rz-2;
+  
+  ring08Mesh.position.x = (-2)*rx;
+  ring06Mesh.position.x = (-2)*rx;
+  ring07Mesh.position.x = (-2)*rx;
+  rr03Mesh.position.x = (-2)*rx;
+  
+  ring02Mesh.position.x = (-2)*rx+2;
+  ring03Mesh.position.x = (-2)*rx+2;
+  planeMesh.position.x = (-2)*rx+2;
+  ring02Mesh.position.y = (-0.3)*rx+0.8;
+  ring03Mesh.position.y = (-0.3)*rx+0.8;
+  planeMesh.position.y = (-0.3)*rx+0.8;
+
+  
+  ball09Mesh.position.x = 2*rx;
+  Q8Mesh.position.x = 2*rx;
+  
+  ball1Mesh.position.x = -1*rx-2;
+  Q6Mesh.position.x = -1*rx-2;
+  
+  ball08Mesh.position.x = -1*rx-0.3;
+  Q9Mesh.position.x = -1*rx-0.3;
+    
+  ball04Mesh.position.y = -1*ry+0.2;
+  Q5Mesh.position.y = -1*ry+0.2;
+  
+  ball10Mesh.position.x = -0.8*rx-2.3;
+  
+
+  village01Mesh.position.y = 0.5*ry-0.98;
+  vil02Mesh.position.y = -0.5*ry-1.0;
+  vil03Mesh.position.y = 0.5*ry-1.26;
+  vil04Mesh.position.y = -0.7*ry-1.46;
+  vil05Mesh.position.y = -0.5*ry-1.1;
+  
+  
+
+  
+   ring02Mesh.translateX = mesh.position.x-0.3;
+   ring02Mesh.translateY= mesh.position.y-0.3;
+  
+   ringMesh.rotation.z += 0.01;
+   ring03Mesh.rotation.z += 0.012;
+   ring04Mesh.rotation.y += 0.005;
+   ring04Mesh.rotation.x += 0.005;
+   ring05Mesh.rotation.z += 0.012;
+   ring06Mesh.rotation.z += 0.013;
+   ring06Mesh.rotation.y += 0.013;
+   ring07Mesh.rotation.z += 0.012;
+   ring08Mesh.rotation.z += 0.012;
+
+  
+  dMesh.rotation.y += 0.005;
+  eMesh.rotation.x += 0.01;
+  eMesh.rotation.y += 0.005;
+  fMesh.rotation.x += 0.01
+  fMesh.rotation.y += 0.02;
+  hMesh.rotation.x += 0.01
+  hMesh.rotation.y += 0.02;
+  gMesh.rotation.x += 0.01
+  gMesh.rotation.y += 0.02;
+
+  bMesh.rotation.x += 0.002;
+  bMesh.rotation.y += 0.005;
+   cMesh.rotation.x += 0.01;
+  cMesh.rotation.y += 0.005;
+  rr02Mesh.rotation.x += 0.01;
+  rr02Mesh.rotation.y += 0.005;
+  rrMesh.rotation.x += 0.01;
+  rrMesh.rotation.y += 0.005;
+  rr03Mesh.rotation.x += 0.005;
+  rr03Mesh.rotation.y += 0.005;
+  ball1Mesh.rotation.x += 0.01;
+  ball1Mesh.rotation.z += 0.005;
+  ball02Mesh.rotation.z += 0.015;
+
+  village01Mesh.rotation.z += 0.015;
+  vil02Mesh.rotation.z += 0.015;
+  vil03Mesh.rotation.z += 0.015;
+  vil04Mesh.rotation.z += 0.015;
+  vil05Mesh.rotation.z += 0.015;
+  light01Mesh.rotation.z += 0.012;
+  light02Mesh.rotation.z += 0.015;
+  light03Mesh.rotation.z += 0.015;
+  light04Mesh.rotation.z += 0.018;
+  light05Mesh.rotation.z += 0.013;
+  light06Mesh.rotation.z += 0.015;
+  light07Mesh.rotation.z += 0.011;
+  light08Mesh.rotation.z += 0.019;
+  
+  star01Mesh.rotation.z += 0.015;
+  star02Mesh.rotation.x += 0.025;
+  star03Mesh.rotation.z += 0.015;
+  star04Mesh.rotation.y += 0.016;
+  star05Mesh.rotation.z += 0.013;
+  star06Mesh.rotation.x += 0.015;
+  star07Mesh.rotation.z += 0.023;
+  star08Mesh.rotation.y += 0.015;
+  
+  ball03Mesh.rotation.x += 0.005;
+  ball03Mesh.rotation.y += 0.005;
+  
+  house01Mesh.rotation.z += 0.013;
+  house02Mesh.rotation.x += 0.015;
+  house03Mesh.rotation.z += 0.023;
+  house04Mesh.rotation.y += 0.015;
+  house05Mesh.rotation.z += 0.013;
+
+
+	requestAnimationFrame(draw);
+
+}
+
+     
+function onWindowResize() {
+	camera.aspect = window.innerWidth / window.innerHeight;
+	camera.updateProjectionMatrix();
+	renderer.setSize(window.innerWidth, window.innerHeight);
+}    
+  
+
+ 
+requestAnimationFrame(draw());
+      
+  
+  function getMouse (mousePosition) 
+ {
+    mouseX = mousePosition.layerX-HALF_WIDTH;
+    mouseY = mousePosition.layerY-HALF_HEIGHT;
+  
+}
+
+  
+</script>
+</body>
+   <script src="tab.js"></script>
+</html>
+
+```
