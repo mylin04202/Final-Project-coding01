@@ -12,13 +12,13 @@ I was inspired by Van Gogh's work *Starry Night* and created an interactive Star
 
 
 
-![img](file:////Users/noahl/Library/Group%20Containers/UBF8T346G9.Office/TemporaryItems/msohtmlclip/clip_image001.jpg)
+![image](https://github.com/mylin04202/img/blob/main/sn01.png)
 
 ( *Starry Night* )
 
-![img](file:////Users/noahl/Library/Group%20Containers/UBF8T346G9.Office/TemporaryItems/msohtmlclip/clip_image002.png)
+![image](https://github.com/mylin04202/img/blob/main/sn02.png)
 
- (My work)
+ ( *My work* )
 
 
 
@@ -31,8 +31,7 @@ I tried to construct a dynamic night of stars and moons by moving geometric, fla
 ### Each Part
 
 
-
-![img](file:////Users/noahl/Library/Group%20Containers/UBF8T346G9.Office/TemporaryItems/msohtmlclip/clip_image003.png)
+![image](https://github.com/mylin04202/img/blob/main/sn03.png)
 
 The light coloured circles of light rotating behind represent flowing rivers of stars and wind, they will rotate while moving along the y-axis as the mouse transforms and will also go back and forth on the z-axis depending on time to achieve an in-flow effect.
 
@@ -40,7 +39,7 @@ The part of the sky that doesn't move with the mouse will slowly slide down out 
 
  
 
-![img](file:////Users/noahl/Library/Group%20Containers/UBF8T346G9.Office/TemporaryItems/msohtmlclip/clip_image004.png)
+![image](https://github.com/mylin04202/img/blob/main/sn04.png)
 
  
 
@@ -52,6 +51,7 @@ The villages on the ground rise and fall over time, as if they were alive.
 
 I added Achille-Claude Debussy's piano piece *clair de lune* as background music for this interactive animation because I felt that the moonlight was very shiny in the original work, but I didn't want to go with something too loud. So I chose Achille-Claude Debussy's *clair de lune* and added the sound of the waves and birds to create the mood for the scene. It is hoped that the sound of the waves and birds will break the psychedelic and calm nature of the painting's dark tones and give a sense of the infinite life contained within.
 
+![image](https://github.com/mylin04202/img/blob/main/sn05.jpg)
  
 
 ### Resources used
